@@ -34,14 +34,14 @@ describe('Alumnos', () => {
   test('Alumno cambia criterio de estudio', () => {
     const parcial = Parcial("Sistemas operativos", 2)
     expect(alumno.criterioEstudio(parcial)).toBeTruthy()
-    const nuevoNico = cambiarCriterioEstudio (hijoDelRigor(4), alumno)
-    expect(nuevoNico.criterioEstudio(parcial)).toBeFalsy()
+    const nuevoAlumno = cambiarCriterioEstudio (hijoDelRigor(4), alumno)
+    expect(nuevoAlumno.criterioEstudio(parcial)).toBeFalsy()
   })
 
   test('Saber si un alumno estudia para un parcial', () => {
     const parcial = Parcial("Sistemas operativos", 2)
-    const nuevoNico = cambiarCriterioEstudio (hijoDelRigor(4), alumno)
-    expect(estudia(parcial, nuevoNico)).toBeFalsy()
+    const nuevoAlumno = cambiarCriterioEstudio (hijoDelRigor(4), alumno)
+    expect(estudia(parcial, nuevoAlumno)).toBeFalsy()
   })
 
 })
