@@ -3,16 +3,17 @@
 /*                                          Parcial                                            **/
 /************************************************************************************************/
 
+// definimos parcial como una estructura inmutable
 type Parcial = {
-  materia: string,
-  cantidadDePreguntas: number
+  readonly materia: string,
+  readonly cantidadDePreguntas: number
 }
 
 const Parcial = (_materia: string, _preguntas: number): Parcial => {
   return {
     materia: _materia,
     cantidadDePreguntas: _preguntas
-  } as const
+  }
 }
 
 /************************************************************************************************/
@@ -20,13 +21,19 @@ const Parcial = (_materia: string, _preguntas: number): Parcial => {
 /************************************************************************************************/
 type CriterioEstudio = (_parcial: Parcial) => boolean
 
-const estudioso: CriterioEstudio = (_) => true
+const estudioso: CriterioEstudio = (parcial: Parcial) => true
 
-const hijoDelRigor = (preguntas: number): CriterioEstudio => (_parcial: Parcial) => _parcial.cantidadDePreguntas > preguntas
+const hijoDelRigor = (minimoPreguntas: number) => (parcial: Parcial) => 
+  parcial.cantidadDePreguntas > minimoPreguntas
 
-const cabulero: CriterioEstudio = (_parcial: Parcial) => _parcial.materia.length % 2 === 0
+const cabulero: CriterioEstudio = (parcial: Parcial) => parcial.materia.length % 2 == 0;
 
-const cambiarCriterioEstudio = (nuevoCriterio: CriterioEstudio, alumno: Alumno): Alumno => { return { ...alumno, criterioEstudio: nuevoCriterio } as const }
+const cambiarCriterioEstudio = (criterioNuevo: CriterioEstudio, alumno: Alumno): Alumno => {
+  return {
+    ...alumno,
+    criterioEstudio: criterioNuevo,
+  }
+}
 
 
 /************************************************************************************************/
@@ -34,12 +41,14 @@ const cambiarCriterioEstudio = (nuevoCriterio: CriterioEstudio, alumno: Alumno):
 /************************************************************************************************/
 type Fecha = [number, number, number] // Tuplas en Typescript
 
+// definimos Alumno como una estructura inmutable
+// 
 type Alumno = {
-  nombre: string,
-  fechaNacimiento: Fecha,
-  legajo: number,
-  materiasQueCursa: string[],
-  criterioEstudio: CriterioEstudio
+  readonly nombre: string,
+  readonly fechaNacimiento: Fecha,
+  readonly legajo: number,
+  readonly materiasQueCursa: string[],
+  readonly criterioEstudio: CriterioEstudio
 }
 
 const Alumno = (_nombre: string, _fechaNacimiento: Fecha, _legajo: number, _materiasQueCursa: string[], _criterio: CriterioEstudio): Alumno => {
@@ -49,7 +58,7 @@ const Alumno = (_nombre: string, _fechaNacimiento: Fecha, _legajo: number, _mate
     legajo: _legajo,
     materiasQueCursa: _materiasQueCursa,
     criterioEstudio: _criterio
-  } as const
+  }
 }
 
 /************************************************************************************************/
