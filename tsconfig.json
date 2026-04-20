@@ -6,6 +6,7 @@
     "moduleResolution": "node16" /* Reemplazo moderno de 'node' (deprecated en TS 5.x). */,
     "lib": ["es2020"],
     "strict": true /* Enable all strict type-checking options. */,
+    "isolatedModules": true /* Requerido por ts-jest con module: node16. */,
     "types": ["jest", "node"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
