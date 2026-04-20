@@ -1,60 +1,68 @@
 import {Alumno, Parcial, cabulero, cambiarCriterioEstudio, estudia, estudioso, hijoDelRigor}  from './app'
 
-const parcialPdep = Parcial("Paradigmas de programacion", 5)
-const parcialOperativos = Parcial("Sistemas operativos", 2)
-const nico = Alumno("Nico",[10, 3, 1993],124124,["sysop", "proyecto"],estudioso)
+const alumno = Alumno("Nico",[10, 3, 1993],124124,["sysop", "proyecto"],estudioso)
 
 describe('Criterios de estudio', () => {
   test('Estudioso siempre estudia', () => {
+    const parcialPdep = Parcial("Paradigmas de programacion", 5)
     expect(estudioso(parcialPdep)).toBeTruthy()
   })
 
   test('Estudioso estudia aunque el parcial tenga 0 preguntas', () => {
-    expect(estudioso(Parcial("Matemática", 0))).toBeTruthy()
+    const parcialSinPreguntas = Parcial("Matemática", 0)
+    expect(estudioso(parcialSinPreguntas)).toBeTruthy()
   })
 
   test('Cabulero estudia si el nombre de la materia cumple con su condición', () => {
-    expect(cabulero(parcialPdep)).toBeTruthy()
+    const parcialConMateriaImpar = Parcial("Paradigmas de programacion", 5)
+    expect(cabulero(parcialConMateriaImpar)).toBeTruthy()
   })
 
   test('Cabulero no estudia si el nombre de la materia no cumple con su condición', () => {
-    expect(cabulero(parcialOperativos)).toBeFalsy()
+    const parcialConMateriaPar = Parcial("Sistemas operativos", 2)
+    expect(cabulero(parcialConMateriaPar)).toBeFalsy()
   })
 
   test('Cabulero con materia de un solo carácter no estudia', () => {
-    expect(cabulero(Parcial("X", 3))).toBeFalsy()
+    const parcialConMateriaDeUnCaracter = Parcial("X", 3)
+    expect(cabulero(parcialConMateriaDeUnCaracter)).toBeFalsy()
   })
 
   test('Hijo del rigor estudia si cumple la condición el parcial', () => {
-    expect(hijoDelRigor(4)(parcialPdep)).toBeTruthy()
+    const parcialConMuchasPreguntas = Parcial("Paradigmas de programacion", 5)
+    expect(hijoDelRigor(4)(parcialConMuchasPreguntas)).toBeTruthy()
   })
 
   test('Hijo del rigor no estudia si no cumple la condición el parcial', () => {
-    expect(hijoDelRigor(4)(parcialOperativos)).toBeFalsy()
+    const parcialConPocasPreguntas = Parcial("Paradigmas de programacion", 4)
+    expect(hijoDelRigor(4)(parcialConPocasPreguntas)).toBeFalsy()
   })
 
   test('Hijo del rigor no estudia cuando las preguntas igualan exactamente el umbral', () => {
-    expect(hijoDelRigor(5)(parcialPdep)).toBeFalsy()
+    const parcialEnElUmbral = Parcial("Paradigmas de programacion", 5)
+    expect(hijoDelRigor(5)(parcialEnElUmbral)).toBeFalsy()
   })
 })
 
 describe('Alumnos', () => {
 
   test('Alumno cambia criterio de estudio', () => {
-    expect(nico.criterioEstudio(parcialOperativos)).toBeTruthy()
-    const nuevoNico = cambiarCriterioEstudio (hijoDelRigor(4), nico)
-    expect(nuevoNico.criterioEstudio(parcialOperativos)).toBeFalsy()
+    const parcial = Parcial("Sistemas operativos", 2)
+    expect(alumno.criterioEstudio(parcial)).toBeTruthy()
+    const nuevoAlumno = cambiarCriterioEstudio (hijoDelRigor(4), alumno)
+    expect(nuevoAlumno.criterioEstudio(parcial)).toBeFalsy()
   })
 
   test('Cambiar criterio devuelve un alumno nuevo sin mutar el original', () => {
-    const nuevoNico = cambiarCriterioEstudio(hijoDelRigor(4), nico)
-    expect(nuevoNico).not.toBe(nico)
-    expect(nico.criterioEstudio).toBe(estudioso)
+    const nuevoAlumno = cambiarCriterioEstudio(hijoDelRigor(4), alumno)
+    expect(nuevoAlumno).not.toBe(alumno)
+    expect(alumno.criterioEstudio).toBe(estudioso)
   })
 
   test('Saber si un alumno estudia para un parcial', () => {
-    const nuevoNico = cambiarCriterioEstudio (hijoDelRigor(4), nico)
-    expect(estudia(parcialOperativos, nuevoNico)).toBeFalsy()
+    const parcial = Parcial("Sistemas operativos", 2)
+    const nuevoAlumno = cambiarCriterioEstudio (hijoDelRigor(4), alumno)
+    expect(estudia(parcial, nuevoAlumno)).toBeFalsy()
   })
 
 })
