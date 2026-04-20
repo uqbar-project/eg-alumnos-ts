@@ -1,45 +1,42 @@
-type Fecha = [number,number,number] // Tuplas en Typescript
+type Fecha = readonly [number, number, number] // Tuplas en Typescript
 
-type Parcial = {
-  materia : string,
-  cantidadDePreguntas :number
-}
+type Parcial = Readonly<{
+  materia: string,
+  cantidadDePreguntas: number
+}>
 
-const Parcial = (_materia:string,_preguntas:number):Parcial => {
-  return {
-    materia: _materia,
-    cantidadDePreguntas: _preguntas
-  } as const
-}
+const Parcial = (_materia: string, _preguntas: number): Parcial => ({
+  materia: _materia,
+  cantidadDePreguntas: _preguntas
+})
 
-type CriterioEstudio = (_parcial :Parcial) => boolean
+type CriterioEstudio = (parcial: Parcial) => boolean
 
-type Alumno = {
-  nombre : string,
-  fechaNacimiento :Fecha,
+type Alumno = Readonly<{
+  nombre: string,
+  fechaNacimiento: Fecha,
   legajo: number,
-  materiasQueCursa : string[],
-  criterioEstudio : CriterioEstudio
-}
+  materiasQueCursa: readonly string[],
+  criterioEstudio: CriterioEstudio
+}>
 
-const Alumno = (_nombre: string,_fechaNacimiento: Fecha,_legajo :number,_materiasQueCursa:string[],_criterio:CriterioEstudio) : Alumno => 
-{ return {
-    nombre: _nombre,
-    fechaNacimiento: _fechaNacimiento,
-    legajo: _legajo,
-    materiasQueCursa: _materiasQueCursa,
-    criterioEstudio: _criterio
- }  as const }
- 
-const estudioso :CriterioEstudio = (_) => true
+const Alumno = (_nombre: string, _fechaNacimiento: Fecha, _legajo: number, _materiasQueCursa: readonly string[], _criterio: CriterioEstudio): Alumno => ({
+  nombre: _nombre,
+  fechaNacimiento: _fechaNacimiento,
+  legajo: _legajo,
+  materiasQueCursa: _materiasQueCursa,
+  criterioEstudio: _criterio
+})
 
-const hijoDelRigor = (preguntas: number) :CriterioEstudio => (_parcial:Parcial) => _parcial.cantidadDePreguntas > preguntas 
+const estudioso: CriterioEstudio = (_parcial) => true
 
-const cabulero :CriterioEstudio = (_parcial :Parcial) => _parcial.materia.length % 2 === 0
+const hijoDelRigor = (preguntas: number): CriterioEstudio => (_parcial: Parcial) => _parcial.cantidadDePreguntas > preguntas
 
-const cambiarCriterioEstudio  = (nuevoCriterio: CriterioEstudio,  alumno: Alumno) :Alumno => {return {...alumno, criterioEstudio: nuevoCriterio } as const}
+const cabulero: CriterioEstudio = (_parcial: Parcial) => _parcial.materia.length % 2 === 0
 
-const estudia = (parcial:Parcial, alumno:Alumno): boolean => alumno.criterioEstudio(parcial)
+const cambiarCriterioEstudio = (nuevoCriterio: CriterioEstudio, alumno: Alumno): Alumno => ({ ...alumno, criterioEstudio: nuevoCriterio })
+
+const estudia = (parcial: Parcial, alumno: Alumno): boolean => alumno.criterioEstudio(parcial)
 
 
-export {Parcial, Alumno,estudioso,hijoDelRigor,cabulero,cambiarCriterioEstudio, estudia}
+export { Parcial, Alumno, estudioso, hijoDelRigor, cabulero, cambiarCriterioEstudio, estudia }

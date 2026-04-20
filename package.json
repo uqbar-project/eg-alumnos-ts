@@ -6,7 +6,8 @@
   "author": "Juan José Contardo",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",
