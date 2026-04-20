@@ -1,6 +1,6 @@
 # Ejercicio de alumnos
 
-[![CI](https://github.com/uqbar-project/eg-alumnos-.ts/actions/workflows/test.yml/badge.svg)](https://github.com/uqbar-project/eg-alumnos-.ts/actions/workflows/test.yml)
+[![CI](https://github.com/uqbar-project/eg-alumnos-ts/actions/workflows/test.yml/badge.svg)](https://github.com/uqbar-project/eg-alumnos-ts/actions/workflows/test.yml) [![codecov](https://codecov.io/gh/uqbar-project/eg-alumnos-ts/graph/badge.svg)](https://codecov.io/gh/uqbar-project/eg-alumnos-ts)
 
 Implementación en TypeScript del ejercicio de **Alumnos** del módulo 3 de *Paradigmas de Programación* (modelado funcional de datos). El objetivo es mostrar cómo se traducen los conceptos del paradigma funcional al ecosistema de TS: tipos, funciones de orden superior, **polimorfismo** e inmutabilidad.
 

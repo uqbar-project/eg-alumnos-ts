@@ -6,4 +6,6 @@ module.exports = {
     '^.+\\.ts?$': 'ts-jest',
   },
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
+  collectCoverageFrom: ['src/**/*.ts', '!src/**/*.test.ts'],
+  coverageReporters: ['text', 'lcov'],
 };
