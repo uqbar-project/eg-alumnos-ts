@@ -48,3 +48,6 @@ test/*.js
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Claude Code local settings
+.claude/
