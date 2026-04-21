@@ -4,14 +4,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version-file: .nvmrc
     - name: Enable Corepack
       run: corepack enable
     - name: Install modules
-      uses: borales/actions-yarn@v4
+      uses: borales/actions-yarn@v5
       with:
-        cmd: install # will run `yarn install` command
-    - name: Run tests
-      uses: borales/actions-yarn@v4
+        cmd: install
+    - name: Run tests with coverage
+      uses: borales/actions-yarn@v5
       with:
-        cmd: test # will run `yarn test` command
+        cmd: test:coverage
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage/lcov.info
+        fail_ci_if_error: true
