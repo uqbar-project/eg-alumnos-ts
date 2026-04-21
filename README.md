@@ -58,8 +58,8 @@ const estudioso: CriterioEstudio = (_parcial) => true
 Los tipos usan `Readonly<T>` para que TypeScript bloquee reasignar los campos:
 
 ```ts
-const p: Parcial = Parcial("Pdep", 5)
-p.materia = "Otra"  // error de compilación
+const parcial: Parcial = Parcial("Pdep", 5)
+parcial.materia = "Otra"  // error de compilación
 ```
 
 Pero `Readonly<T>` es **superficial**: no impide mutar estructuras anidadas. Para arrays marcamos `readonly string[]` explícitamente (como en `materiasQueCursa`). Para inmutabilidad profunda arbitraria haría falta un `DeepReadonly<T>` o una estructura persistente.
